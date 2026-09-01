@@ -27,12 +27,18 @@ public class Character : Identity
                 positionX = toX;
                 positionY = toY;
                 transform.position = new Vector2(positionX, positionY);
-            }else if (IsDemonWalls(toX, toY))
+            }
+            else if (IsDemonWalls(toX, toY))
             {
                 mapGenerator.walls[toX, toY].Hit();
             }
-        }
-        else
+            else if (IsExit(toX, toY))
+            {
+                mapGenerator.Exit.Hit();
+            }
+
+            }
+            else
         {
           positionX = toX;
           positionY = toY;
@@ -113,9 +119,9 @@ public class Character : Identity
 
     public bool IsExit(int x, int y)
     {
-        // int mapData = mapGenerator.GetMapData(x, y);
-        // return mapData == mapGenerator.exit;
-        return false;
+        var mapData = mapGenerator.GetMapData(x, y);
+        return mapData == mapGenerator.exit;
+        //return false;
     }
 
     #endregion
